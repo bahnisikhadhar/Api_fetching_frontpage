@@ -2,8 +2,8 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
-  color:black;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 
@@ -52,53 +52,100 @@
     font-size: 80px;
     color: white;  */
   }
-  
+
   
 /* ****************************************************MAIN******************************************/
 
+/*********************************************************************************************/
+.divider_banner,.premiere_big_container_img{
+  margin: 0 auto;
+  width: 85%;
+}
+.divider_banner img,.premiere_big_container_img img{
+  width: 100%;
+}
 
+.premiere_movie_big_container{
+  background-color:  rgb(43, 49, 72);
+  padding-top: 1.5rem;
+  padding-bottom: .2rem;
+}
 
 /* Below Styles Are Temporary Given and have to be Changed Later 😜 */
-
-.recommnd_movie{
+  
+.recommnd_movie,.likedIndian_movie,.nowPlaying_movie,.popular_movie,.topRated_movie,.latest_movie,.trending_movie{
   margin:3rem auto;
-  width: 80%;
+  width: 85%;
 }
-.recommnd_movie h1{
-  font-size: 1.65rem;
+.recommnd_movie h1,.likedIndian_movie h1,.nowPlaying_movie h1,.popular_movie h1,.topRated_movie h1,.latest_movie h1,.trending_movie h1{
+  font-size: 1.5rem;
   color: rgb(61, 61, 61);
-  margin-bottom: .5rem;
+  margin-bottom: 1.2rem;
+  margin-top: 1.2rem;
 }
-.movies-container{
+.recommended_movies_container,.likedIndianMovies_container,.nowPlayingMovies_container,.popularMovies_container,.topRatedMovies_container,.latestMovies_container{
 display: flex;
-overflow-y: scroll;
+overflow-x: scroll;
 justify-content:center;
 gap:1.3rem;
 }
-.movies-container::-webkit-scrollbar{
+.recommended_movies_container::-webkit-scrollbar,.likedIndianMovies_container::-webkit-scrollbar,.nowPlayingMovies_container::-webkit-scrollbar,.popularMovies_container::-webkit-scrollbar,.topRatedMovies_container::-webkit-scrollbar,.latestMovies_container::-webkit-scrollbar{
   display: none;
 }
-.movies img{
+.movies img,.indian_movies img,.premeire_movies img,.popular_movies img,.topRated_movies img,.latest_movies img,.trending_movies img{
   width:230px;
   height: 370px;
   border-radius: 10px;
 }
-.cast{
-  border:2px solid red;
-  display: flex;
+.movies h2,.indian_movies h2,.premeire_movies h2,.popular_movies h2,.topRated_movies h2,.latest_movies h2{
+  font-size:1.2rem ;
+  margin-top: .5rem;
+  color: rgb(61, 61, 61);
 }
-.crew{
-  border:2px solid green;
-  margin-top:6px;
+.movies p,.indian_movies p,.premeire_movies p,.popular_movies p,.topRated_movies p,.latest_movies p{
+  font-size:1rem ;
+  margin-top: .5rem;
+  color: rgb(61, 61, 61);
+}
+.parent_movie{
+  position: relative;
+}
+.like_vote{
+  width: 230px;
+  background-color: rgb(31, 31, 31);
+  position: absolute;
+  bottom: 0;
   display: flex;
+  padding: .3rem .7rem;
+  align-items: center;
+  justify-content: start;
+  gap: .5rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.like_vote p{
+  color: white;
+  font-size: .9rem;
+}
+.like_vote .fa-star{
+  color:#f96681;
+}
+.like_vote .fa-thumbs-up{
+  color: rgb(5, 171, 5);
+}
+.trendingMovies_container{
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.trending_movies{
+  background-color: white;
+  border: 1px solid rgb(230, 229, 229);
+  border-radius: 5px;
+  padding: .8rem;
+}
+.trending_movies p{
+  color: #f96681;
+  
 }
 
-.reviews{
-  border:2px solid blue;
-  margin-top:16px;
-}
-
-.review-container{
-  border:5px solid cyan;
-  margin-top:16px;
-}

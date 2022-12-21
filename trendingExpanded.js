@@ -1,24 +1,22 @@
-//Retrieving the id from url and storing in a variable called id
 const id = new URLSearchParams(window.location.search).get("id");
-//-----------------------------------------------------------------------------
-//Taking Reference of div  Where We are going to put all data
-const movieContainerEl = document.querySelector(".expandedMovieContainer");
-const moviesYouMayLikeContainerEl = document.querySelector(".moviesYouMayLike_container");
+console.log(id)
+const trendingMoviesContainerEl = document.querySelector(".expandedTrendingMovie_container")
+const moviesYouMayLikeContainerEl = document.querySelector(".moviesYouMayLike_container")
 
-//---------------variable declaration For the reuseablility while hitting ApiEndPoints--------------------
+let auth = "57b428c0e112b579eb26e2f43ff08b0f"
+let Api_key = "api_key=57b428c0e112b579eb26e2f43ff08b0f"
+let Base_Url = "https://api.themoviedb.org/3/"
+let Api_url = Base_Url + "/trending/movie/week?" + Api_key
+let img_url = "https://image.tmdb.org/t/p/w500"
+let upComingMoviesUrl =  Base_Url + "movie/upcoming?" + Api_key
+let recommendedMoviesUrl = Base_Url + "discover/movie?" + Api_key+"&sort_by=popularity.desc&page=2&primary_release_year=2022&with_original_language=ml|bn"
 
-const auth = "57b428c0e112b579eb26e2f43ff08b0f";
-const Api_key = "api_key=57b428c0e112b579eb26e2f43ff08b0f";
-const Base_Url = "https://api.themoviedb.org/3/";
-const Api_url = Base_Url + "/trending/movie/week?" + Api_key;
-const img_url = "https://image.tmdb.org/t/p/w500";
-let moviesYouMayLikeUrl = Base_Url + "discover/movie?" + Api_key+"&sort_by=popularity.desc&page=2&primary_release_year=2022&with_original_language=hi";
 
-//--------Function To Render All The Details Of The Specific Movie We Selected in the Home Page-----------
+
 
 const renderDetails = async () => {
-    const res = await fetch(`${Base_Url}movie/${id}?${Api_key}&language=en-US`); // Fetching Specific Movie Details using id
-    const movieData = await res.json();
+    const res = await fetch(`${Base_Url}movie/${id}?${Api_key}`); // Fetching Specific Movie Details using id
+    const movieData = await res.json()
     const { original_title, backdrop_path, vote_count, vote_average, runtime, release_date, overview, poster_path, genres,spoken_languages,production_companies,adult } = movieData;//Destructuring Optional He😇  
     //We are getting Genres as an array so have to Iterate Over That..We have to delete The Coma Thats coming at the End of very last genre...Will  Rectify it later😒
     let productions= ""
@@ -29,15 +27,10 @@ const renderDetails = async () => {
     spoken_languages.forEach((l)=>{
       languages+=l.english_name+" "+","
     })
-      
-   
- 
-    //We are getting Genres as an array so have to Iterate Over That..We have to delete The Coma Thats coming at the End of very last genre...Will  Rectify it later😒
     let gens = ""
     genres.forEach((g) => {
         gens += g.name + ","
-    });
-
+    })
     const template = `
     <div class="main_container">
     <img src = "${img_url}/${poster_path}" alt="" class="poster_img" /> 
@@ -72,22 +65,26 @@ const renderDetails = async () => {
           <p>Limited Period Offer</p>
         </div>
     </div>
-    `
-    movieContainerEl.innerHTML = template;
-
-    renderCast();  //Calling The Function Render The Cast
-    renderCrew() ; //Calling The Function Render The Crew
+      `
+     
+    trendingMoviesContainerEl.innerHTML = template
+    renderCast()  //Calling The Function Render The Cast
+    renderCrew()  //Calling The Function Render The Crew
     renderReviews() //Calling The Function Render The Reviews
-    renderMoviesYouLike();
+    renderMoviesYouLike()
 }
 
-//-------------------------------------Function That Renders the Cast----------------------------------------
 
+
+
+//------------------------------------------------------------------------------------------
+
+//Function That Renders the Cast
 const renderCast = async () => {
     const res = await fetch(`${Base_Url}movie/${id}/credits?${Api_key}&language=en-US`); // End Point That Fetch the Cast
     const cast = await res.json()
-    let casts = cast.cast.slice(1, 7)//We are Getting a Buch Of Casts So We Sliced it Out 🐱‍👤
-    
+    let casts = cast.cast.slice(1, 7);
+
     const castHead=document.createElement("div");
     castHead.innerHTML = `<h1 class="cast_name">Cast</h1>`;
     castHead.classList.add("cast_section");
@@ -101,17 +98,17 @@ const renderCast = async () => {
           <p>${c.name}</p>
         </div>
           `
-        movieContainerEl.appendChild(castHead);
+          
+          trendingMoviesContainerEl.appendChild(castHead);
     })
 }
-
-//---------------------------------Function That Renders the Crew-------------------------------------------
-
+//----------------------------------------------------------------------------------------------
+//Function That Renders the Crew
 const renderCrew = async () => {
     const res = await fetch(`${Base_Url}movie/${id}/credits?${Api_key}&language=en-US`); // End Point That Fetch the Crew
     const crew = await res.json()
-    let crews = crew.crew.slice(1, 5)//We are Getting a Buch Of Crews So We Sliced it Out 🐱‍👤
-    
+    let crews = crew.crew.slice(1, 5);
+
     const crewHead=document.createElement("div");
     crewHead.innerHTML = `<h1 class="crew_name">Crew</h1>`;
     crewHead.classList.add("crew_section");
@@ -125,13 +122,13 @@ const renderCrew = async () => {
           <p>${c.name}</p>
         </div>
          `
-        //I have used Ternary Operator to get image because Some times We are getting Null through Api😕
-        movieContainerEl.appendChild(crewHead);
+        
+        trendingMoviesContainerEl.appendChild(crewHead);
     })
 }
+// *************************************************************************************
 
-//--------------------------------Function That Renders the Reviews---------------------------------------------
-
+//Function That Renders the Reviews
 const renderReviews = async () => {
     const res = await fetch(`${Base_Url}movie/${id}/reviews?${Api_key}&language=en-US`); // End Point That Fetch the Crew
     const review = await res.json();
@@ -180,41 +177,48 @@ const renderReviews = async () => {
            </div>
            </div>
           `
-        movieContainerEl.appendChild(reviewHead);
+       
+          
+          trendingMoviesContainerEl.appendChild(reviewHead);
     })
 }
-
 
 //-----------------------------------------MOVIES YOU MAY LIKE-----------------------------------------
 
 const renderMoviesYouLike = async function() {
-  const res = await fetch(moviesYouMayLikeUrl); // End Point That Fetch the Crew
-  const movies = await res.json();
- const mayLikeMovies = movies.results.slice(2,10);
-
-
- mayLikeMovies.forEach((movie) => {
-     
-  const {id, title,release_date,popularity,vote_average,original_language,poster_path } = movie;
-  const mayLikeCon = document.createElement("div")
-  mayLikeCon.classList.add("moviesYouMayLike")
-  mayLikeCon.innerHTML = `
-           <a href="./movieExpanded.html?id=${id}">   
-               <img src="${img_url + poster_path}" alt="" />
-           </a>
-           <p>${title}</p>
-         
-`
-{/* <p>Likes-${popularity}</p>
-           <p>rating-${vote_average}</p> */}
-moviesYouMayLikeContainerEl.appendChild(mayLikeCon);
+    const res = await fetch(recommendedMoviesUrl); // End Point That Fetch the Crew
+    const movies = await res.json();
+   const mayLikeMovies = movies.results.slice(1,10);
+  
+  
+   mayLikeMovies.forEach((movie) => {
+       
+    const {id, title,release_date,popularity,vote_average,original_language,poster_path } = movie;
+    const mayLikeCon = document.createElement("div")
+    mayLikeCon.classList.add("moviesYouMayLike")
+    mayLikeCon.innerHTML = `
+             <a href="./trendingExpanded.html?id=${id}">   
+                 <img src="${img_url + poster_path}" alt="" />
+             </a>
+             <p>${title}</p>
+             <p>Likes-${popularity}</p>
+             <p>rating-${vote_average}</p>
+           
+  `
+  moviesYouMayLikeContainerEl.appendChild(mayLikeCon)
 })
 
 }
 
-window.addEventListener("DOMContentLoaded", () => renderDetails())  //This Function help to load the Content When The Dom loads 
 
 
 
-{/* <img src="${img_url}/${backdrop_path}" alt="" class="cover_img" />  */}
 
+
+
+
+
+
+
+
+window.addEventListener("DOMContentLoaded", () => renderDetails())
