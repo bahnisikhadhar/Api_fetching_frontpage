@@ -50,7 +50,7 @@ const renderDetails = async () => {
             <div class="screens">${productions.slice(0,-1)}</div>
             <div class="languages">${languages.slice(0,-1)}</div>
             <div class="other_detail"><span>${Math.floor(runtime/60)}hr ${runtime%60}mins</span> <span>. </span> <span>${gens.slice(0,-1)}</span><span>. </span> <span>${adult?"U/A":"U"}</span> <span>. </span> <span>${release_date}</span></div>
-            <button class="tickt_btn">Book Tickets</button>
+            <button class="tickt_btn"><a href="">Book Tickets</a></button>
         </div>
      </div>
       <div class="about_movie">
